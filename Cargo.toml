@@ -1,0 +1,46 @@
+[package]
+name = "ux-indicators"
+version = "0.1.0"
+authors = ["Victor Dudochkin <dudochkin.victor@gmail.com>"]
+readme = "README.md"
+homepage = "https://angular-rust.github.io/ux-indicators"
+repository = "https://github.com/angular-rust/ux-indicators"
+documentation = "https://docs.rs/ux-indicators"
+description = "Technical Analysis Function Library"
+keywords = ["technical-analysis", "financial-analysis", "technical-analysis-library", "technical-analysis-indicators"]
+categories = ["mathematics", "science"]
+edition = "2018"
+license = "MPL-2.0"
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[dependencies]
+serde = "1.0"
+serde_json = "1.0"
+serde_derive = "1.0"
+lazy_static = "1.4.0"
+error-chain = "0.12"
+ux-primitives = { git = "https://github.com/angular-rust/ux-primitives.git" }
+
+rust_decimal = "1.7.0"
+rust_decimal_macros = "1.7.0"
+
+[dev-dependencies]
+
+assert_approx_eq = "1.1.0"
+csv = "1.1.3"
+bencher = "0.1.5"
+rand = "0.7.3"
+json = "0.12.4"
+lazy_static = "1.4.0"
+rspec = "0.1.0"
+# cucumber = { package = "cucumber_rust", version = "^0.6.0" } 
+cucumber_rust = "0.6.8" 
+# cucumber = "0.3.1"
+
+
+[[bench]]
+name = "indicators"
+path = "benches/indicators.rs"
+harness = false
