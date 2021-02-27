@@ -21,7 +21,7 @@ serde_json = "1.0"
 serde_derive = "1.0"
 lazy_static = "1.4.0"
 error-chain = "0.12"
-ux-primitives = { version = "0.1.0", git = "https://github.com/angular-rust/ux-primitives.git" }
+ux-primitives = { version = "0.1", git = "https://github.com/angular-rust/ux-primitives.git" }
 
 rust_decimal = "1.7.0"
 rust_decimal_macros = "1.7.0"
