@@ -19,24 +19,24 @@ maintenance = { status = "actively-developed" }
 serde = "1.0"
 serde_json = "1.0"
 serde_derive = "1.0"
-lazy_static = "1.4.0"
+lazy_static = "1.4"
 error-chain = "0.12"
-ux-primitives = { version = "0.1", git = "https://github.com/angular-rust/ux-primitives.git" }
+ux-primitives = "0.1"
 
-rust_decimal = "1.7.0"
-rust_decimal_macros = "1.7.0"
+rust_decimal = "1.7"
+rust_decimal_macros = "1.7"
 
 [dev-dependencies]
 
-assert_approx_eq = "1.1.0"
-csv = "1.1.3"
-bencher = "0.1.5"
-rand = "0.7.3"
-json = "0.12.4"
-lazy_static = "1.4.0"
-rspec = "0.1.0"
+assert_approx_eq = "1.1"
+csv = "1.1"
+bencher = "0.1"
+rand = "0.7"
+json = "0.12"
+lazy_static = "1.4"
+rspec = "0.1"
 # cucumber = { package = "cucumber_rust", version = "^0.6.0" } 
-cucumber_rust = "0.6.8" 
+cucumber_rust = "0.6" 
 # cucumber = "0.3.1"
 
 
