@@ -2,7 +2,7 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-use ux_indicators;
+use indicators;
 
 fn main() {
     

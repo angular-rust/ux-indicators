@@ -1,11 +1,10 @@
 extern crate csv;
 extern crate core;
 
-use ux_indicators::{
+use indicators::{
     indicators::ExponentialMovingAverage as Ema,
     DataItem,
     Next
-
 };
 
 fn main() {

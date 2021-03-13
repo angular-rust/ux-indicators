@@ -15,6 +15,9 @@ license = "MPL-2.0"
 [badges]
 maintenance = { status = "actively-developed" }
 
+[lib]
+name = "indicators"
+
 [dependencies]
 serde = "1.0"
 serde_json = "1.0"
