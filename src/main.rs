@@ -2,8 +2,4 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-use indicators;
-
-fn main() {
-    
-}
+fn main() {}

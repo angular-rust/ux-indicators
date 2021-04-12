@@ -3,13 +3,13 @@
 #![allow(unused_imports)]
 
 use crate::indicators::SimpleMovingAverage;
-use crate::{Next};
+use crate::Next;
 
-use std::collections::VecDeque;
-use std::collections::HashMap;
-use std::rc::Rc;
-use std::cell::RefCell;
 use crate::errors::Error;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::collections::VecDeque;
+use std::rc::Rc;
 
 #[derive(Debug, Clone)]
 pub enum DataPoint {
@@ -93,9 +93,9 @@ pub enum SlotType {
 pub struct Slot {
     pub name: String,
     slot_type: SlotType,
-    state: f64, // used to store value when it input type
-    pub changed: bool, // when it input type,
-    connected: bool, // when in input type,
+    state: f64,                          // used to store value when it input type
+    pub changed: bool,                   // when it input type,
+    connected: bool,                     // when in input type,
     connections: Vec<Rc<RefCell<Slot>>>, // used to keep references when it output type
 }
 
@@ -103,7 +103,7 @@ impl Slot {
     pub fn new(slot_type: SlotType) -> Self {
         Self {
             name: String::from("slot"),
-            slot_type: slot_type,
+            slot_type,
             state: 0.0,
             changed: false,
             connected: false,
@@ -113,7 +113,7 @@ impl Slot {
     // output is multiple, input is single
     pub fn connect(&mut self, wire: Rc<RefCell<Slot>>) -> Result<(), Error> {
         if self.slot_type == SlotType::Output {
-            return Ok(())
+            return Ok(());
         }
         // self.wire = Some(wire)
         Err("The error message".into())
@@ -131,7 +131,7 @@ impl Slot {
         self.state = val;
     }
 
-    // fetch data from buffer 
+    // fetch data from buffer
     pub fn get(&mut self) -> f64 {
         self.changed = false;
         self.state
@@ -156,9 +156,7 @@ impl Indicator {
     pub fn slot(&self, name: &str) -> Option<Rc<RefCell<Slot>>> {
         None
     }
-    pub fn stuff(&self) {
-
-    }
+    pub fn stuff(&self) {}
 }
 
 #[derive(Debug, Clone)]
@@ -178,7 +176,7 @@ pub struct Input {
 impl Input {
     pub fn new(input_type: InputType) -> Self {
         Self {
-            input_type: input_type,
+            input_type,
             slots: vec![],
             timeseries: VecDeque::new(),
         }
@@ -192,10 +190,10 @@ impl Input {
             DataPoint::Ohlcv(_) => {
                 // let a: Ohlcv = val;
                 self.timeseries.push_back(item);
-            },
+            }
             _ => {
                 print!("unhandled node type")
-            },
+            }
         }
     }
 }
@@ -207,12 +205,10 @@ pub struct View {
 
 impl View {
     pub fn new() -> Self {
-        Self {
-            plots: vec![],
-        }
+        Self { plots: vec![] }
     }
 
-    pub fn attach(&mut self, plot: Rc<Plot>){
+    pub fn attach(&mut self, plot: Rc<Plot>) {
         self.plots.push(plot);
     }
 }
@@ -231,9 +227,7 @@ impl Plot {
         }
     }
     // draw to view
-    pub fn draw(&self){
-
-    }
+    pub fn draw(&self) {}
 
     pub fn slot(&self, name: &str) -> Option<Rc<RefCell<Slot>>> {
         None
@@ -263,11 +257,11 @@ pub fn example() {
     // input -> indicator
     let input_close = input.slot("close").unwrap();
     let mut input_close = input_close.borrow_mut();
-    {    
+    {
         let indicator_close = indicator.slot("close").unwrap();
         let _ = input_close.connect(Rc::clone(&indicator_close));
     }
-        
+
     // // indicator -> plot
     let indicator_output = indicator.slot("output").unwrap();
     let mut indicator_output = indicator_output.borrow_mut();
@@ -275,16 +269,15 @@ pub fn example() {
         let plot_close = plot.slot("close").unwrap();
         let _ = indicator_output.connect(Rc::clone(&plot_close));
     }
-    
 
     let rcplot = Rc::new(plot);
     // put plot into view
     view.attach(Rc::clone(&rcplot));
-    
+
     let a: &Plot = rcplot.as_ref();
     a.draw();
 
-    input.push(DataPoint::Ohlcv(Ohlcv{
+    input.push(DataPoint::Ohlcv(Ohlcv {
         timestamp: 1,
         open: 0.1,
         high: 0.1,
@@ -305,18 +298,18 @@ pub fn example() {
         match item {
             Node::View(val) => {
                 let a: &View = val;
-            },
+            }
             Node::Plot(val) => {
                 let a: &Plot = val;
-            },
+            }
             Node::Text(val) => {
                 let a: String = val.to_string();
-            },
+            }
             _ => {
                 print!("unhandled node type")
-            },
+            }
         }
-    } 
+    }
 }
 
 // pub struct Inticator {

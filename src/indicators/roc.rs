@@ -6,15 +6,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::traits::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct RocFactory {
-}
+pub struct RocFactory {}
 
 impl RocFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -39,24 +38,25 @@ impl Factory for RocFactory {
 /// # Parameters
 ///
 /// * _length_ - number of periods (_n_), integer greater than 0
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::RateOfChange;
-/// use core::Next;
-///
-/// let mut roc = RateOfChange::new(2).unwrap();
-/// assert_eq!(roc.next(10.0), 0.0);            //  0
-/// assert_eq!(roc.next(9.7).round(), -3.0);    //  (9.7 - 10) / 10  * 100 = -3
-/// assert_eq!(roc.next(20.0).round(), 100.0);  //  (20 - 10)  / 10  * 100 = 100
-/// assert_eq!(roc.next(20.0).round(), 106.0);  //  (20 - 9.7) / 9.7 * 100 = 106
-/// ```
-///
-/// # Links
-///
-/// * [Rate of Change, Wikipedia](https://en.wikipedia.org/wiki/Momentum_(technical_analysis))
-///
+
+//
+// # Example
+//
+// ```
+// use core::indicators::RateOfChange;
+// use core::Next;
+//
+// let mut roc = RateOfChange::new(2).unwrap();
+// assert_eq!(roc.next(10.0), 0.0);            //  0
+// assert_eq!(roc.next(9.7).round(), -3.0);    //  (9.7 - 10) / 10  * 100 = -3
+// assert_eq!(roc.next(20.0).round(), 100.0);  //  (20 - 10)  / 10  * 100 = 100
+// assert_eq!(roc.next(20.0).round(), 106.0);  //  (20 - 9.7) / 9.7 * 100 = 106
+// ```
+//
+// # Links
+//
+// * [Rate of Change, Wikipedia](https://en.wikipedia.org/wiki/Momentum_(technical_analysis))
+//
 
 #[derive(Debug, Clone)]
 pub struct RateOfChange {
@@ -70,7 +70,7 @@ impl RateOfChange {
             0 => Err(Error::from_kind(ErrorKind::InvalidParameter)),
             _ => {
                 let indicator = Self {
-                    length: length,
+                    length,
                     prices: VecDeque::with_capacity(length as usize + 1),
                 };
                 Ok(indicator)
