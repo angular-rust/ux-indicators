@@ -6,15 +6,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::traits::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct KerFactory {
-}
+pub struct KerFactory {}
 
 impl KerFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -32,21 +31,22 @@ impl Factory for KerFactory {
 /// # Parameters
 ///
 /// * _length_ - number of periods (integer greater than 0)
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::EfficiencyRatio;
-/// use core::Next;
-///
-/// let mut er = EfficiencyRatio::new(4).unwrap();
-/// assert_eq!(er.next(10.0), 1.0);
-/// assert_eq!(er.next(13.0), 1.0);
-/// assert_eq!(er.next(12.0), 0.5);
-/// assert_eq!(er.next(13.0), 0.6);
-/// assert_eq!(er.next(18.0), 0.8);
-/// assert_eq!(er.next(19.0), 0.75);
-/// ```
+
+//
+// # Example
+//
+// ```
+// use core::indicators::EfficiencyRatio;
+// use core::Next;
+//
+// let mut er = EfficiencyRatio::new(4).unwrap();
+// assert_eq!(er.next(10.0), 1.0);
+// assert_eq!(er.next(13.0), 1.0);
+// assert_eq!(er.next(12.0), 0.5);
+// assert_eq!(er.next(13.0), 0.6);
+// assert_eq!(er.next(18.0), 0.8);
+// assert_eq!(er.next(19.0), 0.75);
+// ```
 
 pub struct EfficiencyRatio {
     length: u32,
@@ -59,7 +59,7 @@ impl EfficiencyRatio {
             Err(Error::from_kind(ErrorKind::InvalidParameter))
         } else {
             let indicator = Self {
-                length: length,
+                length,
                 prices: VecDeque::with_capacity(length as usize + 1),
             };
             Ok(indicator)

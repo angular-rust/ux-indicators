@@ -6,15 +6,14 @@ use crate::errors::*;
 use crate::indicators::StandardDeviation as Sd;
 use crate::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct BBandsFactory {
-}
+pub struct BBandsFactory {}
 
 impl BBandsFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -38,31 +37,32 @@ impl Factory for BBandsFactory {
 ///  * _BB<sub>Middle Band</sub>_ - Simple Moving Average (SMA).
 ///  * _BB<sub>Upper Band</sub>_ = SMA + SD of observation * multipler (usually 2.0)
 ///  * _BB<sub>Lower Band</sub>_ = SMA - SD of observation * multipler (usually 2.0)
-///
-/// # Example
-///
-///```
-/// use core::indicators::{BollingerBands, BollingerBandsOutput};
-/// use core::Next;
-///
-/// let mut bb = BollingerBands::new(3, 2.0_f64).unwrap();
-///
-/// let out_0 = bb.next(2.0);
-///
-/// let out_1 = bb.next(5.0);
-///
-/// assert_eq!(out_0.average, 2.0);
-/// assert_eq!(out_0.upper, 2.0);
-/// assert_eq!(out_0.lower, 2.0);
-///
-/// assert_eq!(out_1.average, 3.5);
-/// assert_eq!(out_1.upper, 6.5);
-/// assert_eq!(out_1.lower, 0.5);
-/// ```
-///
-/// # Links
-///
-/// ![Bollinger Bands, Wikipedia](https://en.wikipedia.org/wiki/Bollinger_Bands)
+
+//
+// # Example
+//
+//```
+// use core::indicators::{BollingerBands, BollingerBandsOutput};
+// use core::Next;
+//
+// let mut bb = BollingerBands::new(3, 2.0_f64).unwrap();
+//
+// let out_0 = bb.next(2.0);
+//
+// let out_1 = bb.next(5.0);
+//
+// assert_eq!(out_0.average, 2.0);
+// assert_eq!(out_0.upper, 2.0);
+// assert_eq!(out_0.lower, 2.0);
+//
+// assert_eq!(out_1.average, 3.5);
+// assert_eq!(out_1.upper, 6.5);
+// assert_eq!(out_1.lower, 0.5);
+// ```
+//
+// # Links
+//
+// ![Bollinger Bands, Wikipedia](https://en.wikipedia.org/wiki/Bollinger_Bands)
 
 #[derive(Debug, Clone)]
 pub struct BollingerBands {

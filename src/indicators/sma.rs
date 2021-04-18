@@ -5,22 +5,21 @@ use std::fmt;
 
 use crate::errors::*;
 
+use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
-use std::cell::RefCell;
 
-use crate::errors::{ErrorKind, Error};
+use crate::errors::{Error, ErrorKind};
 use crate::{Close, Next, Reset};
-use crate::{Slot, SlotPtr, SlotType, Frame};
+use crate::{Frame, Slot, SlotPtr, SlotType};
 
-use crate::{Factory};
+use crate::Factory;
 
-pub struct SmaFactory {
-}
+pub struct SmaFactory {}
 
 impl SmaFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -74,27 +73,33 @@ pub struct SimpleMovingAverage<'a> {
     pub inputs: HashMap<&'a str, Rc<RefCell<Slot>>>,
     pub outputs: HashMap<&'a str, Rc<RefCell<Slot>>>,
 }
- 
+
 impl<'a> SimpleMovingAverage<'a> {
     pub fn new(period: u32) -> Result<Self> {
         match period {
             // 0 => Err(Error::from_kind(ErrorKind::InvalidParameter)),
             _ => {
                 let indicator = Self {
-                    period: period,
+                    period,
                     index: 0,
                     count: 0,
                     sum: 0.0,
                     vec: vec![0.0; period as usize],
-                    inputs: [("input", Rc::new(RefCell::new(Slot::new(SlotType::Input))))].iter().cloned().collect(),
-                    outputs: [("output", Rc::new(RefCell::new(Slot::new(SlotType::Output))))].iter().cloned().collect(),
+                    inputs: [("input", Rc::new(RefCell::new(Slot::new(SlotType::Input))))]
+                        .iter()
+                        .cloned()
+                        .collect(),
+                    outputs: [("output", Rc::new(RefCell::new(Slot::new(SlotType::Output))))]
+                        .iter()
+                        .cloned()
+                        .collect(),
                 };
 
                 Ok(indicator)
             }
         }
     }
-    
+
     // fn slot(&mut self, name: &str) -> Option<&mut Rc<RefCell<Slot>>> {
     //     self.inputs.get_mut(name)
     // }
@@ -110,10 +115,10 @@ impl<'a> SimpleMovingAverage<'a> {
                 // println!("HERE {:?}", slot.borrow_mut());
 
                 let input = slot.borrow_mut().get();
-                
+
                 self.index = (self.index + 1) % (self.period as usize);
                 let old_val = self.vec[self.index];
-                
+
                 self.vec[self.index] = input;
 
                 // fill counter upto period
@@ -137,7 +142,7 @@ impl<'a> SimpleMovingAverage<'a> {
 
 impl<'a> Next<f64> for SimpleMovingAverage<'a> {
     type Output = Box<[f64]>;
-    
+
     fn next(&mut self, input: f64) -> Self::Output {
         self.index = (self.index + 1) % (self.period as usize);
 
@@ -164,7 +169,6 @@ impl<'a> Next<f64> for SimpleMovingAverage<'a> {
 // }
 
 impl<'a> Reset for SimpleMovingAverage<'a> {
-    
     fn reset(&mut self) {
         self.index = 0;
         self.count = 0;
@@ -235,11 +239,10 @@ impl<'a> fmt::Display for SimpleMovingAverage<'a> {
 mod tests {
     use super::*;
     use crate::test_helper::*;
-    use crate::{Slot, SlotPtr, SlotType, Frame};
+    use crate::{Frame, Slot, SlotPtr, SlotType};
 
     // test_indicator!(SimpleMovingAverage);
 
-    
     #[test]
     fn test_new() {
         initialize();
@@ -277,7 +280,7 @@ mod tests {
         // }
         assert_eq!(step(&mut sma, 4.0), 4.0);
         assert_eq!(step(&mut sma, 5.0), 4.5);
-        assert_eq!(step(&mut sma, 6.0), 5.0);        
+        assert_eq!(step(&mut sma, 6.0), 5.0);
         assert_eq!(step(&mut sma, 6.0), 5.25);
         assert_eq!(step(&mut sma, 6.0), 5.75);
         assert_eq!(step(&mut sma, 6.0), 6.0);
@@ -305,8 +308,6 @@ mod tests {
     // }
 
     // let a: HashMap<&str, SlotPtr> = [("input", ptr)].iter().cloned().collect();
-
-
 
     // #[test]
     // fn test_next() {

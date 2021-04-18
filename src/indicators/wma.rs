@@ -3,22 +3,21 @@
 
 use std::fmt;
 
-use rust_decimal_macros::*;
 use rust_decimal::prelude::*;
+use rust_decimal_macros::*;
 use std::collections::VecDeque;
 
-use crate::errors::{ErrorKind, Error};
+use crate::errors::{Error, ErrorKind};
 use crate::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct WmaFactory {
-}
+pub struct WmaFactory {}
 
 impl WmaFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -44,16 +43,18 @@ impl Factory for WmaFactory {
 ///
 /// * _period_ - number of periods (integer greater than 0)
 ///
-/// # Example
-///
-/// ```
-/// use core::indicators::WeightedMovingAverage;
-/// use core::Next;
-///
-/// let mut wma = WeightedMovingAverage::new(3).unwrap();
-/// assert_eq!(wma.next(10.0), f64::INFINITY);
-/// ```
-///
+
+// # Example
+//
+// ```
+// use core::indicators::WeightedMovingAverage;
+// use core::Next;
+//
+// let mut wma = WeightedMovingAverage::new(3).unwrap();
+// assert_eq!(wma.next(10.0), f64::INFINITY);
+// ```
+//
+
 /// # Links
 ///
 /// * [Weighted Moving Average, Wikipedia](https://en.wikipedia.org/wiki/Moving_average#Simple_moving_average)
@@ -64,7 +65,7 @@ pub struct WeightedMovingAverage {
     period: u32,
     index: usize,
     count: u32,
-    sum: Decimal, /* Flat sum of previous numbers. */
+    sum: Decimal,        /* Flat sum of previous numbers. */
     weight_sum: Decimal, /* Weighted sum of previous numbers. */
     vec: VecDeque<f64>,
 }
@@ -76,7 +77,7 @@ impl WeightedMovingAverage {
             // 0 => Err(Error::from_kind(ErrorKind::InvalidParameter)),
             _ => {
                 let indicator = WeightedMovingAverage {
-                    period: period,
+                    period,
                     index: 0,
                     count: 0,
                     sum: Decimal::zero(),
@@ -91,7 +92,7 @@ impl WeightedMovingAverage {
 
 impl Next<f64> for WeightedMovingAverage {
     type Output = f64;
-    
+
     fn next(&mut self, input: f64) -> Self::Output {
         // self.index = (self.index + 1) % (self.period as usize);
 
@@ -102,15 +103,19 @@ impl Next<f64> for WeightedMovingAverage {
         if self.count < self.period - 1 {
             self.count += 1;
             self.vec.push_back(input);
-            self.weight_sum += Decimal::from_f64(input).unwrap() * Decimal::from_u32(self.count).unwrap();
+            self.weight_sum +=
+                Decimal::from_f64(input).unwrap() * Decimal::from_u32(self.count).unwrap();
             self.sum += Decimal::from_f64(input).unwrap();
             return f64::INFINITY;
         }
 
-        let weights: Decimal = Decimal::from_u32(self.period).unwrap() * (Decimal::from_u32(self.period).unwrap() + Decimal::from_u32(1).unwrap()) / Decimal::from_u32(2).unwrap();
+        let weights: Decimal = Decimal::from_u32(self.period).unwrap()
+            * (Decimal::from_u32(self.period).unwrap() + Decimal::from_u32(1).unwrap())
+            / Decimal::from_u32(2).unwrap();
 
         // sliding window
-        self.weight_sum += Decimal::from_f64(input).unwrap() * Decimal::from_u32(self.period).unwrap();
+        self.weight_sum +=
+            Decimal::from_f64(input).unwrap() * Decimal::from_u32(self.period).unwrap();
         self.sum += Decimal::from_f64(input).unwrap();
 
         let output: Decimal = self.weight_sum / weights;
@@ -118,8 +123,11 @@ impl Next<f64> for WeightedMovingAverage {
         self.vec.push_back(input);
         self.weight_sum -= self.sum;
         self.sum -= Decimal::from_f64(self.vec.pop_front().unwrap()).unwrap();
-        
-        output.round_dp_with_strategy(3, RoundingStrategy::RoundHalfUp).to_f64().unwrap()
+
+        output
+            .round_dp_with_strategy(3, RoundingStrategy::RoundHalfUp)
+            .to_f64()
+            .unwrap()
     }
 }
 
@@ -132,7 +140,6 @@ impl<'a, T: Close> Next<&'a T> for WeightedMovingAverage {
 }
 
 impl Reset for WeightedMovingAverage {
-    
     fn reset(&mut self) {
         self.index = 0;
         self.count = 0;
@@ -173,12 +180,12 @@ mod tests {
     fn test_next() {
         initialize();
         let _params = &TESTS["wma"];
-        println!("");
+        println!();
         for _test in _params.tests.iter() {
             let _period = _test.options[0];
             let _input = &_test.inputs[0];
             let _output = &_test.outputs[0];
-            
+
             println!("WMA WITH PERIOD {}", _period);
             let mut indicator = WeightedMovingAverage::new(_period as u32).unwrap();
             for val in _input.iter() {

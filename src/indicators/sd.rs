@@ -5,15 +5,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct SdFactory {
-}
+pub struct SdFactory {}
 
 impl SdFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -40,22 +39,23 @@ impl Factory for SdFactory {
 /// # Parameters
 ///
 /// * _n_ - number of periods (integer greater than 0)
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::StandardDeviation;
-/// use core::Next;
-///
-/// let mut sd = StandardDeviation::new(3).unwrap();
-/// assert_eq!(sd.next(10.0), 0.0);
-/// assert_eq!(sd.next(20.0), 5.0);
-/// ```
-///
-/// # Links
-///
-/// * [Standard Deviation, Wikipedia](https://en.wikipedia.org/wiki/Standard_deviation)
-///
+
+//
+// # Example
+//
+// ```
+// use core::indicators::StandardDeviation;
+// use core::Next;
+//
+// let mut sd = StandardDeviation::new(3).unwrap();
+// assert_eq!(sd.next(10.0), 0.0);
+// assert_eq!(sd.next(20.0), 5.0);
+// ```
+//
+// # Links
+//
+// * [Standard Deviation, Wikipedia](https://en.wikipedia.org/wiki/Standard_deviation)
+//
 
 #[derive(Debug, Clone)]
 pub struct StandardDeviation {

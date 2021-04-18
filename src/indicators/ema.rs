@@ -5,15 +5,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct EmaFactory {
-}
+pub struct EmaFactory {}
 
 impl EmaFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -51,24 +50,25 @@ impl Factory for EmaFactory {
 /// # Parameters
 ///
 /// * _length_ - number of periods (integer greater than 0)
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::ExponentialMovingAverage;
-/// use core::Next;
-///
-/// let mut ema = ExponentialMovingAverage::new(3).unwrap();
-/// assert_eq!(ema.next(2.0), 2.0);
-/// assert_eq!(ema.next(5.0), 3.5);
-/// assert_eq!(ema.next(1.0), 2.25);
-/// assert_eq!(ema.next(6.25), 4.25);
-/// ```
-///
-/// # Links
-///
-/// * [Exponential moving average, Wikipedia](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average)
-///
+
+//
+// # Example
+//
+// ```
+// use core::indicators::ExponentialMovingAverage;
+// use core::Next;
+//
+// let mut ema = ExponentialMovingAverage::new(3).unwrap();
+// assert_eq!(ema.next(2.0), 2.0);
+// assert_eq!(ema.next(5.0), 3.5);
+// assert_eq!(ema.next(1.0), 2.25);
+// assert_eq!(ema.next(6.25), 4.25);
+// ```
+//
+// # Links
+//
+// * [Exponential moving average, Wikipedia](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average)
+//
 
 #[derive(Debug, Clone)]
 pub struct ExponentialMovingAverage {

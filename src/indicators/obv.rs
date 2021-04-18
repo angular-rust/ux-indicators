@@ -4,15 +4,14 @@ use std::fmt;
 
 use crate::{Close, Next, Reset, Volume};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct ObvFactory {
-}
+pub struct ObvFactory {}
 
 impl ObvFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -42,39 +41,40 @@ impl Factory for ObvFactory {
 /// Where:
 ///
 /// obv - on the balance volume
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::OnBalanceVolume;
-/// use core::{Next, DataItem};
-///
-/// let mut obv = OnBalanceVolume::new();
-///
-/// let di1 = DataItem::builder()
-///             .high(3.0)
-///             .low(1.0)
-///             .close(2.0)
-///             .open(1.5)
-///             .volume(1000.0)
-///             .build().unwrap();
-///
-/// let di2 = DataItem::builder()
-///             .high(3.0)
-///             .low(1.0)
-///             .close(1.5)
-///             .open(1.5)
-///             .volume(300.0)
-///             .build().unwrap();
-///
-/// assert_eq!(obv.next(&di1), 1000.0);
-/// assert_eq!(obv.next(&di2), 700.0);
-/// ```
-///
-/// # Links
-///
-/// * [On Balance Volume, Wikipedia](https://en.wikipedia.org/wiki/On-balance_volume)
-/// * [On Balance Volume, stockcharts](https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:on_balance_volume_obv)
+
+//
+// # Example
+//
+// ```
+// use core::indicators::OnBalanceVolume;
+// use core::{Next, DataItem};
+//
+// let mut obv = OnBalanceVolume::new();
+//
+// let di1 = DataItem::builder()
+//             .high(3.0)
+//             .low(1.0)
+//             .close(2.0)
+//             .open(1.5)
+//             .volume(1000.0)
+//             .build().unwrap();
+//
+// let di2 = DataItem::builder()
+//             .high(3.0)
+//             .low(1.0)
+//             .close(1.5)
+//             .open(1.5)
+//             .volume(300.0)
+//             .build().unwrap();
+//
+// assert_eq!(obv.next(&di1), 1000.0);
+// assert_eq!(obv.next(&di2), 700.0);
+// ```
+//
+// # Links
+//
+// * [On Balance Volume, Wikipedia](https://en.wikipedia.org/wiki/On-balance_volume)
+// * [On Balance Volume, stockcharts](https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:on_balance_volume_obv)
 
 #[derive(Debug, Clone)]
 pub struct OnBalanceVolume {
@@ -179,5 +179,4 @@ mod tests {
         let obv = OnBalanceVolume::new();
         assert_eq!(format!("{}", obv), "OBV");
     }
-
 }

@@ -6,15 +6,14 @@ use crate::errors::*;
 use crate::indicators::{Maximum, Minimum};
 use crate::{Close, High, Low, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct FstoFactory {
-}
+pub struct FstoFactory {}
 
 impl FstoFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -44,20 +43,21 @@ impl Factory for FstoFactory {
 /// # Parameters
 ///
 /// * _length_ - number of periods (integer greater than 0). Default is 14.
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::FastStochastic;
-/// use core::Next;
-///
-/// let mut stoch = FastStochastic::new(5).unwrap();
-/// assert_eq!(stoch.next(20.0), 50.0);
-/// assert_eq!(stoch.next(30.0), 100.0);
-/// assert_eq!(stoch.next(40.0), 100.0);
-/// assert_eq!(stoch.next(35.0), 75.0);
-/// assert_eq!(stoch.next(15.0), 0.0);
-/// ```
+
+//
+// # Example
+//
+// ```
+// use core::indicators::FastStochastic;
+// use core::Next;
+//
+// let mut stoch = FastStochastic::new(5).unwrap();
+// assert_eq!(stoch.next(20.0), 50.0);
+// assert_eq!(stoch.next(30.0), 100.0);
+// assert_eq!(stoch.next(40.0), 100.0);
+// assert_eq!(stoch.next(35.0), 75.0);
+// assert_eq!(stoch.next(15.0), 0.0);
+// ```
 
 #[derive(Debug, Clone)]
 pub struct FastStochastic {
@@ -69,7 +69,7 @@ pub struct FastStochastic {
 impl FastStochastic {
     pub fn new(length: u32) -> Result<Self> {
         let indicator = Self {
-            length: length,
+            length,
             minimum: Minimum::new(length)?,
             maximum: Maximum::new(length)?,
         };

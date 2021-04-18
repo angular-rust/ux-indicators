@@ -5,15 +5,14 @@ use std::fmt;
 use crate::helpers::max3;
 use crate::{Close, High, Low, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct TrFactory {
-}
+pub struct TrFactory {}
 
 impl TrFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -36,37 +35,38 @@ impl Factory for TrFactory {
 ///
 /// TR = max[(high - low), abs(high - close<sub>prev</sub>), abs(low - close<sub>prev</sub>)]
 ///
-/// # Example
-///
-/// ```
-/// extern crate core;
-/// #[macro_use] extern crate assert_approx_eq;
-///
-/// use core::{Next, DataItem};
-/// use core::indicators::TrueRange;
-///
-/// fn main() {
-///     let data = vec![
-///         // open, high, low, close, tr
-///         (9.7   , 10.0, 9.0, 9.5  , 1.0),  // tr = high - low = 10.0 - 9.0 = 1.0
-///         (9.9   , 10.4, 9.8, 10.2 , 0.9),  // tr = high - prev_close = 10.4 - 9.5 = 0.9
-///         (10.1  , 10.7, 9.4, 9.7  , 1.3),  // tr = high - low = 10.7 - 9.4 = 1.3
-///         (9.1   , 9.2 , 8.1, 8.4  , 1.6),  // tr = prev_close - low = 9.7 - 8.1 = 1.6
-///     ];
-///     let mut indicator = TrueRange::new();
-///
-///     for (open, high, low, close, tr) in data {
-///         let di = DataItem::builder()
-///             .high(high)
-///             .low(low)
-///             .close(close)
-///             .open(open)
-///             .volume(1000.0)
-///             .build().unwrap();
-///         assert_approx_eq!(indicator.next(&di), tr);
-///     }
-/// }
-/// ```
+
+// # Example
+//
+// ```
+// extern crate core;
+// #[macro_use] extern crate assert_approx_eq;
+//
+// use core::{Next, DataItem};
+// use core::indicators::TrueRange;
+//
+// fn main() {
+//     let data = vec![
+//         // open, high, low, close, tr
+//         (9.7   , 10.0, 9.0, 9.5  , 1.0),  // tr = high - low = 10.0 - 9.0 = 1.0
+//         (9.9   , 10.4, 9.8, 10.2 , 0.9),  // tr = high - prev_close = 10.4 - 9.5 = 0.9
+//         (10.1  , 10.7, 9.4, 9.7  , 1.3),  // tr = high - low = 10.7 - 9.4 = 1.3
+//         (9.1   , 9.2 , 8.1, 8.4  , 1.6),  // tr = prev_close - low = 9.7 - 8.1 = 1.6
+//     ];
+//     let mut indicator = TrueRange::new();
+//
+//     for (open, high, low, close, tr) in data {
+//         let di = DataItem::builder()
+//             .high(high)
+//             .low(low)
+//             .close(close)
+//             .open(open)
+//             .volume(1000.0)
+//             .build().unwrap();
+//         assert_approx_eq!(indicator.next(&di), tr);
+//     }
+// }
+// ```
 
 #[derive(Debug, Clone)]
 pub struct TrueRange {

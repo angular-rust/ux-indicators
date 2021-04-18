@@ -6,15 +6,14 @@ use crate::errors::*;
 use crate::indicators::ExponentialMovingAverage as Ema;
 use crate::{Close, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct RsiFactory {
-}
+pub struct RsiFactory {}
 
 impl RsiFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -68,24 +67,25 @@ impl Factory for RsiFactory {
 /// # Parameters
 ///
 /// * _n_ - number of periods (integer greater than 0). Default value is 14.
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::RelativeStrengthIndex;
-/// use core::Next;
-///
-/// let mut rsi = RelativeStrengthIndex::new(3).unwrap();
-/// assert_eq!(rsi.next(10.0), 50.0);
-/// assert_eq!(rsi.next(10.5).round(), 86.0);
-/// assert_eq!(rsi.next(10.0).round(), 35.0);
-/// assert_eq!(rsi.next(9.5).round(), 16.0);
-/// ```
-///
-/// # Links
-/// * [Relative strength index (Wikipedia)](https://en.wikipedia.org/wiki/Relative_strength_index)
-/// * [RSI (Investopedia)](http://www.investopedia.com/terms/r/rsi.asp)
-///
+
+//
+// # Example
+//
+// ```
+// use core::indicators::RelativeStrengthIndex;
+// use core::Next;
+//
+// let mut rsi = RelativeStrengthIndex::new(3).unwrap();
+// assert_eq!(rsi.next(10.0), 50.0);
+// assert_eq!(rsi.next(10.5).round(), 86.0);
+// assert_eq!(rsi.next(10.0).round(), 35.0);
+// assert_eq!(rsi.next(9.5).round(), 16.0);
+// ```
+//
+// # Links
+// * [Relative strength index (Wikipedia)](https://en.wikipedia.org/wiki/Relative_strength_index)
+// * [RSI (Investopedia)](http://www.investopedia.com/terms/r/rsi.asp)
+//
 
 #[derive(Debug, Clone)]
 pub struct RelativeStrengthIndex {
@@ -99,7 +99,7 @@ pub struct RelativeStrengthIndex {
 impl RelativeStrengthIndex {
     pub fn new(n: u32) -> Result<Self> {
         let rsi = Self {
-            n: n,
+            n,
             up_ema_indicator: Ema::new(n)?,
             down_ema_indicator: Ema::new(n)?,
             prev_val: 0.0,

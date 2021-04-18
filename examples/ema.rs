@@ -1,11 +1,7 @@
-extern crate csv;
 extern crate core;
+extern crate csv;
 
-use indicators::{
-    indicators::ExponentialMovingAverage as Ema,
-    DataItem,
-    Next
-};
+use indicators::{indicators::ExponentialMovingAverage as Ema, DataItem, Next};
 
 fn main() {
     let mut ema = Ema::new(9).unwrap();

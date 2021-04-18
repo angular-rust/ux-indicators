@@ -6,15 +6,14 @@ use crate::errors::Result;
 use crate::indicators::{ExponentialMovingAverage, FastStochastic};
 use crate::{Close, High, Low, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct SstoFactory {
-}
+pub struct SstoFactory {}
 
 impl SstoFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -32,20 +31,21 @@ impl Factory for SstoFactory {
 ///
 /// * _stochastic_n_ - number of periods for fast stochastic (integer greater than 0). Default is 14.
 /// *_ema_n_ - length for EMA (integer greater than 0). Default is 3.
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::SlowStochastic;
-/// use core::Next;
-///
-/// let mut stoch = SlowStochastic::new(3, 2).unwrap();
-/// assert_eq!(stoch.next(10.0), 50.0);
-/// assert_eq!(stoch.next(50.0).round(), 83.0);
-/// assert_eq!(stoch.next(50.0).round(), 94.0);
-/// assert_eq!(stoch.next(30.0).round(), 31.0);
-/// assert_eq!(stoch.next(55.0).round(), 77.0);
-/// ```
+
+//
+// # Example
+//
+// ```
+// use core::indicators::SlowStochastic;
+// use core::Next;
+//
+// let mut stoch = SlowStochastic::new(3, 2).unwrap();
+// assert_eq!(stoch.next(10.0), 50.0);
+// assert_eq!(stoch.next(50.0).round(), 83.0);
+// assert_eq!(stoch.next(50.0).round(), 94.0);
+// assert_eq!(stoch.next(30.0).round(), 31.0);
+// assert_eq!(stoch.next(55.0).round(), 77.0);
+// ```
 
 #[derive(Clone, Debug)]
 pub struct SlowStochastic {

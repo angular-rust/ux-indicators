@@ -45,7 +45,7 @@ pub trait Volume {
     fn volume(&self) -> f64;
 }
 
-/// Factory trait to create indicator 
+/// Factory trait to create indicator
 pub trait Factory {
     fn create() -> Box<dyn Next<f64, Output = Box<[f64]>>>;
 }

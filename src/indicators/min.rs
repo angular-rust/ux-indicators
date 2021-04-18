@@ -6,15 +6,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::{Low, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct MinFactory {
-}
+pub struct MinFactory {}
 
 impl MinFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -29,19 +28,20 @@ impl Factory for MinFactory {
 /// # Parameters
 ///
 /// * _n_ - size of the time frame (integer greater than 0). Default value is 14.
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::Minimum;
-/// use core::Next;
-///
-/// let mut min = Minimum::new(3).unwrap();
-/// assert_eq!(min.next(10.0), 10.0);
-/// assert_eq!(min.next(11.0), 10.0);
-/// assert_eq!(min.next(12.0), 10.0);
-/// assert_eq!(min.next(13.0), 11.0);
-/// ```
+
+//
+// # Example
+//
+// ```
+// use core::indicators::Minimum;
+// use core::Next;
+//
+// let mut min = Minimum::new(3).unwrap();
+// assert_eq!(min.next(10.0), 10.0);
+// assert_eq!(min.next(11.0), 10.0);
+// assert_eq!(min.next(12.0), 10.0);
+// assert_eq!(min.next(13.0), 11.0);
+// ```
 
 #[derive(Debug, Clone)]
 pub struct Minimum {
@@ -60,7 +60,7 @@ impl Minimum {
         }
 
         let indicator = Self {
-            n: n,
+            n,
             vec: vec![INFINITY; n],
             min_index: 0,
             cur_index: 0,

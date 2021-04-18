@@ -6,15 +6,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::{Close, High, Low, Next, Reset, Volume};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct MfiFactory {
-}
+pub struct MfiFactory {}
 
 impl MfiFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -49,27 +48,28 @@ impl Factory for MfiFactory {
 /// # Parameters
 ///
 /// * _n_ - number of periods, integer greater than 0
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::MoneyFlowIndex;
-/// use core::{Next, DataItem};
-///
-/// let mut mfi = MoneyFlowIndex::new(3).unwrap();
-/// let di = DataItem::builder()
-///             .high(3.0)
-///             .low(1.0)
-///             .close(2.0)
-///             .open(1.5)
-///             .volume(1000.0)
-///             .build().unwrap();
-/// mfi.next(&di);
-///
-/// ```
-/// # Links
-/// * [Money Flow Index, Wikipedia](https://en.wikipedia.org/wiki/Money_flow_index)
-/// * [Money Flow Index, stockcharts](https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:money_flow_index_mfi)
+
+//
+// # Example
+//
+// ```
+// use core::indicators::MoneyFlowIndex;
+// use core::{Next, DataItem};
+//
+// let mut mfi = MoneyFlowIndex::new(3).unwrap();
+// let di = DataItem::builder()
+//             .high(3.0)
+//             .low(1.0)
+//             .close(2.0)
+//             .open(1.5)
+//             .volume(1000.0)
+//             .build().unwrap();
+// mfi.next(&di);
+//
+// ```
+// # Links
+// * [Money Flow Index, Wikipedia](https://en.wikipedia.org/wiki/Money_flow_index)
+// * [Money Flow Index, stockcharts](https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:money_flow_index_mfi)
 
 #[derive(Debug, Clone)]
 pub struct MoneyFlowIndex {
@@ -87,7 +87,7 @@ impl MoneyFlowIndex {
             0 => Err(Error::from_kind(ErrorKind::InvalidParameter)),
             _ => {
                 let indicator = Self {
-                    n: n,
+                    n,
                     money_flows: VecDeque::with_capacity(n as usize + 1),
                     prev_typical_price: 0.0,
                     total_positive_money_flow: 0.0,
@@ -112,7 +112,7 @@ impl<'a, T: High + Low + Close + Volume> Next<&'a T> for MoneyFlowIndex {
             self.money_flows.push_back(0.0);
             self.prev_typical_price = typical_price;
             self.is_new = false;
-            return 50.0;
+            50.0
         } else {
             let money_flow = typical_price * input.volume();
 
@@ -248,5 +248,4 @@ mod tests {
         let mfi = MoneyFlowIndex::new(10).unwrap();
         assert_eq!(format!("{}", mfi), "MFI(10)");
     }
-
 }

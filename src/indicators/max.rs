@@ -6,15 +6,14 @@ use std::fmt;
 use crate::errors::*;
 use crate::{High, Next, Reset};
 
-use crate::{Factory};
 use crate::indicators::SimpleMovingAverage;
+use crate::Factory;
 
-pub struct MaxFactory {
-}
+pub struct MaxFactory {}
 
 impl MaxFactory {
     pub fn new() -> Self {
-        Self{}
+        Self {}
     }
 }
 
@@ -29,20 +28,21 @@ impl Factory for MaxFactory {
 /// # Parameters
 ///
 /// * _n_ - size of the time frame (integer greater than 0). Default value is 14.
-///
-/// # Example
-///
-/// ```
-/// use core::indicators::Maximum;
-/// use core::Next;
-///
-/// let mut max = Maximum::new(3).unwrap();
-/// assert_eq!(max.next(7.0), 7.0);
-/// assert_eq!(max.next(5.0), 7.0);
-/// assert_eq!(max.next(4.0), 7.0);
-/// assert_eq!(max.next(4.0), 5.0);
-/// assert_eq!(max.next(8.0), 8.0);
-/// ```
+
+//
+// # Example
+//
+// ```
+// use core::indicators::Maximum;
+// use core::Next;
+//
+// let mut max = Maximum::new(3).unwrap();
+// assert_eq!(max.next(7.0), 7.0);
+// assert_eq!(max.next(5.0), 7.0);
+// assert_eq!(max.next(4.0), 7.0);
+// assert_eq!(max.next(4.0), 5.0);
+// assert_eq!(max.next(8.0), 8.0);
+// ```
 
 #[derive(Debug, Clone)]
 pub struct Maximum {
@@ -61,7 +61,7 @@ impl Maximum {
         }
 
         let indicator = Self {
-            n: n,
+            n,
             vec: vec![-INFINITY; n],
             max_index: 0,
             cur_index: 0,
