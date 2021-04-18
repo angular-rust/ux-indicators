@@ -27,7 +27,9 @@
 [loc-badge]: https://img.shields.io/tokei/lines/github/angular-rust/ux-indicators?style=flat-square
 [loc-url]: https://github.com/angular-rust/ux-indicators
 
-ux-indicators is a Centralized State Management And Design Patterns for Rust.
+**UX Indicators** is a Rust library for technical analysis in Angular Rust. It provides a range of technical indicators that can be used to build trading strategies for stock markets, futures, forex, cryptocurrencies, and more. 
+
+> **work in progress**
 
 **Angular Rust** is a high productivity, `platform-agnostic` frontend framework for the [Rust language](https://www.rust-lang.org/). It now supports desktop and web development. Angular Rust currently uses GTK for desktop development and WebAssembly for web development. We are planning to add support for mobile development.
 
