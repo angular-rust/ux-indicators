@@ -125,7 +125,7 @@ impl Next<f64> for WeightedMovingAverage {
         self.sum -= Decimal::from_f64(self.vec.pop_front().unwrap()).unwrap();
 
         output
-            .round_dp_with_strategy(3, RoundingStrategy::RoundHalfUp)
+            .round_dp_with_strategy(3, RoundingStrategy::MidpointAwayFromZero)
             .to_f64()
             .unwrap()
     }
