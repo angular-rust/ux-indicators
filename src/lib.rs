@@ -9,7 +9,7 @@
     clippy::float_cmp,
     clippy::assign_op_pattern,
     clippy::absurd_extreme_comparisons,
-    clippy::collapsible_else_if,
+    clippy::collapsible_else_if
 )]
 
 //! ta is a Rust library for technical analysis. It provides number of technical indicators
