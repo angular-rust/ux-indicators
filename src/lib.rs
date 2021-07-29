@@ -12,6 +12,8 @@
     clippy::collapsible_else_if
 )]
 
+#![doc(html_logo_url = "https://dudochkin-victor.github.io/assets/ux-indicators/logo.svg")]
+
 //! ta is a Rust library for technical analysis. It provides number of technical indicators
 //! that can be used to build trading strategies for stock markets, futures, forex, cryptocurrencies, etc.
 //!
